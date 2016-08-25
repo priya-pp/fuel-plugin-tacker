@@ -43,7 +43,7 @@ $db_connection = os_database_connection({
   'charset'  => 'utf8'
 })
 
-$rabbit_hash        = hiera_hash('rabbit_hash', {})
+$rabbit_hash        = hiera_hash('rabbit', {})
 $rabbit_hosts       = split(hiera('amqp_hosts',''), ',')
 $rabbit_password    = $rabbit_hash['password']
 $rabbit_userid      = $rabbit_hash['user']
