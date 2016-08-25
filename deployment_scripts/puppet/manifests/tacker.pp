@@ -19,13 +19,14 @@ $tacker_user          = pick($tacker_hash['user'], 'tacker')
 $tacker_user_password = $tacker_hash['user_password']
 
 $ssl_hash               = hiera_hash('use_ssl', {})
-$internal_auth_protocol = get_ssl_property($ssl_hash, {}, 'keystone', 'internal', 'protocol', 'http')
-$internal_auth_address  = get_ssl_property($ssl_hash, {}, 'keystone', 'internal', 'hostname', [hiera('service_endpoint', ''), $management_vip])
+$public_auth_protocol = get_ssl_property($ssl_hash, {}, 'keystone', 'public', 'protocol', 'http')
+$public_auth_address  = get_ssl_property($ssl_hash, {}, 'keystone', 'public', 'hostname', [hiera('service_endpoint', ''), $management_vip])
 $admin_auth_protocol    = get_ssl_property($ssl_hash, {}, 'keystone', 'admin', 'protocol', 'http')
 $admin_auth_address     = get_ssl_property($ssl_hash, {}, 'keystone', 'admin', 'hostname', [hiera('service_endpoint', ''), $management_vip])
 
-$auth_uri     = "${internal_auth_protocol}://${internal_auth_address}:5000/v2.0/"
+$auth_uri     = "${public_auth_protocol}://${public_auth_address}:5000/v2.0/"
 $identity_uri = "${admin_auth_protocol}://${admin_auth_address}:35357/"
+$heat_uri     = "${admin_auth_protocol}://${admin_auth_address}:8000/v1/"
 
 $database_vip = hiera('database_vip', undef)
 $db_type      = 'mysql'
