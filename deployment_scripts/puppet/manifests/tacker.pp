@@ -26,7 +26,7 @@ $admin_auth_address     = get_ssl_property($ssl_hash, {}, 'keystone', 'admin', '
 
 $auth_uri     = "${public_auth_protocol}://${public_auth_address}:5000/v2.0/"
 $identity_uri = "${admin_auth_protocol}://${admin_auth_address}:35357/"
-$heat_uri     = "${admin_auth_protocol}://${admin_auth_address}:8000/v1/"
+$heat_uri     = "${admin_auth_protocol}://${admin_auth_address}:8004/v1/"
 
 $database_vip = hiera('database_vip', undef)
 $db_type      = 'mysql'
@@ -65,4 +65,5 @@ class { 'tacker':
   debug               => $debug,
   opendaylight_host   => $management_vip,
   opendaylight_port   => $odl_port,
+  heat_uri            => $heat_uri
 }
