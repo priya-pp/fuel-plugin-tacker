@@ -1,6 +1,7 @@
 notice('MODULAR: tacker.pp')
 
-$management_vip      = hiera('management_vip')
+$management_vip = hiera('management_vip')
+$public_vip     = hiera('public_vip')
 $network_scheme = hiera_hash('network_scheme', {})
 prepare_network_config($network_scheme)
 
@@ -20,13 +21,13 @@ $tacker_user_password = $tacker_hash['user_password']
 
 $ssl_hash               = hiera_hash('use_ssl', {})
 $public_auth_protocol = get_ssl_property($ssl_hash, {}, 'keystone', 'public', 'protocol', 'http')
-$public_auth_address  = get_ssl_property($ssl_hash, {}, 'keystone', 'public', 'hostname', [hiera('service_endpoint', ''), $management_vip])
+$public_auth_address  = get_ssl_property($ssl_hash, {}, 'keystone', 'public', 'hostname', $public_vip])
 $admin_auth_protocol    = get_ssl_property($ssl_hash, {}, 'keystone', 'admin', 'protocol', 'http')
-$admin_auth_address     = get_ssl_property($ssl_hash, {}, 'keystone', 'admin', 'hostname', [hiera('service_endpoint', ''), $management_vip])
+$admin_auth_address     = get_ssl_property($ssl_hash, {}, 'keystone', 'admin', 'hostname', $management_vip])
 
 $auth_uri     = "${public_auth_protocol}://${public_auth_address}:5000/v2.0/"
 $identity_uri = "${admin_auth_protocol}://${admin_auth_address}:35357/"
-$heat_uri     = "${admin_auth_protocol}://${admin_auth_address}:8004/v1/"
+$heat_uri     = "${admin_auth_protocol}://${admin_auth_address}:8004/v1"
 
 $database_vip = hiera('database_vip', undef)
 $db_type      = 'mysql'
@@ -65,5 +66,5 @@ class { 'tacker':
   debug               => $debug,
   opendaylight_host   => $management_vip,
   opendaylight_port   => $odl_port,
-  heat_uri            => $heat_uri
+  heat_uri            => $heat_uri,
 }
