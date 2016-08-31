@@ -21,9 +21,9 @@ $tacker_user_password = $tacker_hash['user_password']
 
 $ssl_hash               = hiera_hash('use_ssl', {})
 $public_auth_protocol = get_ssl_property($ssl_hash, {}, 'keystone', 'public', 'protocol', 'http')
-$public_auth_address  = get_ssl_property($ssl_hash, {}, 'keystone', 'public', 'hostname', $public_vip])
+$public_auth_address  = get_ssl_property($ssl_hash, {}, 'keystone', 'public', 'hostname', $public_vip)
 $admin_auth_protocol    = get_ssl_property($ssl_hash, {}, 'keystone', 'admin', 'protocol', 'http')
-$admin_auth_address     = get_ssl_property($ssl_hash, {}, 'keystone', 'admin', 'hostname', $management_vip])
+$admin_auth_address     = get_ssl_property($ssl_hash, {}, 'keystone', 'admin', 'hostname', $management_vip)
 
 $auth_uri     = "${public_auth_protocol}://${public_auth_address}:5000/v2.0/"
 $identity_uri = "${admin_auth_protocol}://${admin_auth_address}:35357/"
