@@ -66,3 +66,13 @@
     puppet_manifest: puppet/manifests/haproxy.pp
     puppet_modules: puppet/modules:/etc/puppet/modules
     timeout: 300
+- id: tacker-tackerc
+  role: [primary-controller]
+  required_for: [deploy_end]
+  requires: [primary-database, database,heat]
+  type: shell
+  cross-depends:
+    - name: /(primary-)?database/
+  parameters:
+    cmd: bash create_tackerc.sh
+    timeout: 180
