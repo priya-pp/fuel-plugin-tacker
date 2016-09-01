@@ -17,7 +17,7 @@ $service_name = pick($tacker_hash['service'], 'tacker-server')
 
 $tacker_tenant        = pick($tacker_hash['tenant'], 'services')
 $tacker_user          = pick($tacker_hash['user'], 'tacker')
-$tacker_user_password = $tacker_hash['user_password']
+$tacker_user_password = pick($tacker_hash['user'], 'tacker')
 
 $ssl_hash               = hiera_hash('use_ssl', {})
 $public_auth_protocol = get_ssl_property($ssl_hash, {}, 'keystone', 'public', 'protocol', 'http')
