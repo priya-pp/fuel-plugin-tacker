@@ -19,7 +19,7 @@ TACKER_HORIZON_REPO=${TACKER_HORIZON_REPO:-https://github.com/openstack/tacker-h
 TACKER_HORIZON_BRANCH=${TACKER_HORIZON_BRANCH:-stable/mitaka}
 
 TACKER_PUPPET_REPO=${TACKER_PUPPET_REPO:-https://github.com/trozet/puppet-tacker}
-TACKER_PUPPET_BRANCH=${TACKER_PUPPET_BRANCH:-master}
+TACKER_PUPPET_BRANCH=${TACKER_PUPPET_BRANCH:-fix_db_sync}
 
 function cleanup {
   rm -rf "${TMP_DIR}"
